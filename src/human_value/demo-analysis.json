@@ -1,0 +1,36 @@
+[
+  {"score": 1, "analysis": {
+    "summary": "The human supplies the data and defines what the summary should cover.",
+    "contributions": [
+      {"category": "goal_framing", "description": "Sets a concrete reporting objective.", "evidence": {"message_id": "u1", "quote": "Write a brief conversion-rate summary."}},
+      {"category": "information", "description": "Provides conversion and visit counts for two segments.", "evidence": {"message_id": "u1", "quote": "Segment A had 9 conversions from 10 visits; segment B had 1 conversion from 90 visits."}},
+      {"category": "constraints", "description": "Requires both segment-level and overall reporting.", "evidence": {"message_id": "u1", "quote": "Show both segments and the overall result."}}
+    ],
+    "followup": {"status": "observed", "description": "The assistant uses the segment counts, but its overall aggregation is incorrect. Visible uptake does not imply correctness.", "evidence": [{"message_id": "a1", "quote": "Segment A converted at 90% and segment B at 1.11%."}]},
+    "limitations": ["The counts are supplied in the conversation; there is no independent dataset verification."]
+  }},
+  {"score": 1, "analysis": {
+    "summary": "The human corrects an aggregation error with an explicit calculation.",
+    "contributions": [
+      {"category": "correction", "description": "Identifies that averaging segment rates gives the wrong overall rate here.", "evidence": {"message_id": "u2", "quote": "The overall rate must be total conversions divided by total visits."}},
+      {"category": "verification", "description": "Provides a checkable calculation using the supplied counts.", "evidence": {"message_id": "u2", "quote": "(9 + 1) / (10 + 90) = 10%, not 45.56%."}}
+    ],
+    "followup": {"status": "observed", "description": "The next assistant response uses the corrected overall rate.", "evidence": [{"message_id": "a2", "quote": "Overall, 10 of 100 visits converted, giving a 10% conversion rate."}]},
+    "limitations": ["The trace shows a correction followed by a revision. It does not measure what the assistant would have done without this intervention."]
+  }},
+  {"score": 1, "analysis": {
+    "summary": "The human chooses the headline and limits the interpretation.",
+    "contributions": [
+      {"category": "decision", "description": "Selects the overall rate as the main result.", "evidence": {"message_id": "u3", "quote": "Use the 10% overall rate as the headline."}},
+      {"category": "constraints", "description": "Requires the segment rates and rules out an unsupported causal interpretation.", "evidence": {"message_id": "u3", "quote": "Keep the segment rates below it, and describe the result without claiming the segment caused the difference."}}
+    ],
+    "followup": {"status": "observed", "description": "The assistant follows the requested presentation and states the causal limitation.", "evidence": [{"message_id": "a3", "quote": "Overall conversion: 10%."}, {"message_id": "a3", "quote": "These are descriptive results; the data do not establish why the segment rates differ."}]},
+    "limitations": ["This is an editorial decision with visible uptake, not a measured gain in task quality."]
+  }},
+  {"score": 0, "analysis": {
+    "summary": "The human acknowledges the response without adding a specific task contribution.",
+    "contributions": [],
+    "followup": {"status": "not_observed", "description": "The assistant acknowledges the thanks; no substantive work change is visible.", "evidence": [{"message_id": "a4", "quote": "You're welcome."}]},
+    "limitations": ["Social acknowledgment can matter to interaction; this narrow task-contribution rubric does not quantify that value."]
+  }}
+]

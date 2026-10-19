@@ -1,0 +1,6 @@
+include README.zh-CN.md ENGINE_PROVENANCE.md CONTRIBUTING.md
+recursive-include examples *.json
+recursive-include docs *.md *.json *.html *.png .nojekyll
+recursive-include scripts *.py
+recursive-include tests *.py
+global-exclude __pycache__ *.py[cod]
