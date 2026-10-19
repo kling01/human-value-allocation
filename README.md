@@ -95,6 +95,8 @@ python -m build
 
 Tests cover source evidence, temporal boundaries, full IDs, failed evaluations, HTML escaping, shared-engine integration and request retry accounting. Mocked integration tests verify software behavior, not model accuracy.
 
+See the [release validation record](docs/validation.md) for isolated installation and live smoke checks.
+
 ## Next experiments
 
 - Human review of the rubric across several task types.
