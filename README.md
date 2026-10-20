@@ -5,24 +5,24 @@
 Evidence-linked analysis of human contributions in human–AI conversations.
 Import a dialogue, inspect each human turn, and follow every observation back to the source text.
 
-**Research preview · v0.1.0a1 · Python 3.10+ · MIT**
+**v0.1.0a1 · Python 3.10+ · MIT**
 
-[中文说明](README.zh-CN.md) · [Example report](https://kling01.github.io/human-value-allocation/) · [Evaluation rubric](src/human_value/evaluator.yaml) · [Method & limits](docs/method.md) · [Paper](https://arxiv.org/abs/2610.26365)
+[中文说明](README.zh-CN.md) · [Example report](https://kling01.github.io/human-value-allocation/) · [Evaluation rubric](src/human_value/evaluator.yaml) · [Method](docs/method.md) · [Paper](https://arxiv.org/abs/2610.26365)
 
-Related paper: *From Tasks to Turns: Measuring Human Labor Contributions in Human–Agent Joint Production* studies Human-Turn-level quality and remaining computation; this preview provides descriptive contribution analysis and does not yet implement the paper's measurement protocol.
+Related paper: *From Tasks to Turns: Measuring Human Labor Contributions in Human–Agent Joint Production* studies Human-Turn-level quality and remaining computation.
 
 ## Research framework
 
 ![Paper Figure 1: adjacent checkpoints are continued under matched conditions to measure final quality and remaining tokens.](docs/paper/measurement-overview.png)
 
-**Paper Figure 1.** The research protocol independently continues adjacent checkpoints under matched models, budgets, and termination conditions, then compares final task quality and remaining token usage. It also supports controlled guidance comparisons and human-origin interactions. The current tool preview provides descriptive conversation analysis; the continuation-based measurement protocol is a research component, not an implemented CLI feature.
+**Paper Figure 1.** The research protocol independently continues adjacent checkpoints under matched models, budgets, and termination conditions, then compares final task quality and remaining token usage. It also supports controlled guidance comparisons and human-origin interactions.
 
 <details>
 <summary><strong>Paper result: equal task quality can conceal different amounts of remaining work</strong></summary>
 
 ![Paper Figure 5: HumanBench quality directions for 506 comparisons and remaining-token directions for 409 quality ties.](docs/paper/humanbench-results.png)
 
-**Paper Figure 5 — HumanBench.** Of 506 jointly valid comparisons from 85 human-origin source sessions, 49 improve final quality, 409 preserve it, and 48 decrease it. Within the 409 quality ties, 112 use over 20% fewer remaining tokens, 169 stay within ±20%, and 128 use over 20% more. This equal-quality subset covers 48 root tasks and 82 source sessions. The result motivates measuring quality and computation together; it is not a performance claim for this repository's analyzer or a monetary valuation of human input.
+**Paper Figure 5 — HumanBench.** Of 506 jointly valid comparisons from 85 human-origin source sessions, 49 improve final quality, 409 preserve it, and 48 decrease it. Within the 409 quality ties, 112 use over 20% fewer remaining tokens, 169 stay within ±20%, and 128 use over 20% more. This equal-quality subset covers 48 root tasks and 82 source sessions. The result motivates measuring quality and computation together.
 
 See the [paper](https://arxiv.org/abs/2610.26365) for the protocol, cohorts, and limitations. [Figure sources](docs/paper/README.md).
 
@@ -63,8 +63,6 @@ Outputs:
 - `report.html`: a standalone report with source-linked observations and visible followup.
 - `report.json`: machine-readable results, rubric fingerprint, unresolved turns, and provider usage when available.
 
-The analyzer makes one logical model call per human turn, with at most one retry for transient request errors. Default concurrency is four. Missing usage remains unknown. This usage is the **cost of running the analyzer**, not the human's token-equivalent value.
-
 Remote endpoints require HTTPS by default. `--allow-insecure-http` explicitly opts into an HTTP gateway you trust; loopback HTTP endpoints are accepted for local models.
 
 ## What v0 analyzes
@@ -80,8 +78,6 @@ Remote endpoints require HTTPS by default. `--allow-insecure-http` explicitly op
 
 For each turn, the report separates the human's contribution from what the assistant visibly did next. Evidence quotes are checked against the permitted source messages. An invalid quote or failed API call produces an unresolved turn, not a zero-value score.
 
-**“Allocation” is the research direction. This release provides descriptive analysis.** It does not estimate causal credit, saved tokens, task-quality gains, monetary value or percentage ownership. Category counts overlap and must not be summed into a value score. The rubric is an initial operational definition; its accuracy and agreement with human raters have not yet been established.
-
 ## Input format
 
 ```json
@@ -95,15 +91,6 @@ For each turn, the report separates the human's contribution from what the assis
 ```
 
 Each message has exactly `id`, `role`, and text `content`. Roles: `user`, `assistant`, `system`, `tool`. Message IDs must be unique within the session; full IDs are preserved. v0 accepts one text conversation, up to 50 human turns and 200,000 content characters. Unsupported or excessive input is rejected without silent truncation. Native tool-call trees, attachments and multimodal inputs need an adapter and are not supported by this release.
-
-## Built on agent-eval-v2
-
-```text
-Dialogue JSON → adapter → shared cleaner → agent-eval-v2 run_combined
-              → evidence validation → local HTML + JSON
-```
-
-The repository includes a namespaced, sanitized subset of the evaluation engine. The analysis layer adds the human-contribution rubric and report; it does not introduce a parallel judge. Model settings are explicit per run. No business configurations, production traces, database adapters, private endpoints or embedded credentials are included. See [engine provenance](ENGINE_PROVENANCE.md).
 
 ## Development
 
