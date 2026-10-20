@@ -11,6 +11,25 @@ Import a dialogue, inspect each human turn, and follow every observation back to
 
 Related paper: *From Tasks to Turns: Measuring Human Labor Contributions in Human–Agent Joint Production* studies Human-Turn-level quality and remaining computation; this preview provides descriptive contribution analysis and does not yet implement the paper's measurement protocol.
 
+## Research framework
+
+![Paper Figure 1: adjacent checkpoints are continued under matched conditions to measure final quality and remaining tokens.](docs/paper/measurement-overview.png)
+
+**Paper Figure 1.** The research protocol independently continues adjacent checkpoints under matched models, budgets, and termination conditions, then compares final task quality and remaining token usage. It also supports controlled guidance comparisons and human-origin interactions. The current tool preview provides descriptive conversation analysis; the continuation-based measurement protocol is a research component, not an implemented CLI feature.
+
+<details>
+<summary><strong>Paper result: equal task quality can conceal different amounts of remaining work</strong></summary>
+
+![Paper Figure 5: HumanBench quality directions for 506 comparisons and remaining-token directions for 409 quality ties.](docs/paper/humanbench-results.png)
+
+**Paper Figure 5 — HumanBench.** Of 506 jointly valid comparisons from 85 human-origin source sessions, 49 improve final quality, 409 preserve it, and 48 decrease it. Within the 409 quality ties, 112 use over 20% fewer remaining tokens, 169 stay within ±20%, and 128 use over 20% more. This equal-quality subset covers 48 root tasks and 82 source sessions. The result motivates measuring quality and computation together; it is not a performance claim for this repository's analyzer or a monetary valuation of human input.
+
+See the [paper](https://arxiv.org/abs/2610.26365) for the protocol, cohorts, and limitations. [Figure sources](docs/paper/README.md).
+
+</details>
+
+### Tool preview
+
 ![Example contribution report](docs/preview.png)
 
 ## Try it in one minute

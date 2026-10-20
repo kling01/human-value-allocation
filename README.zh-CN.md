@@ -10,6 +10,23 @@
 
 相关论文 *From Tasks to Turns: Measuring Human Labor Contributions in Human–Agent Joint Production* 研究 Human-Turn 级的质量与剩余计算量测度；当前预览版提供描述性贡献分析，尚未实现论文中的测量协议。
 
+## 论文研究框架
+
+![论文图 1：在匹配条件下，从相邻检查点独立续跑，比较最终质量与剩余 token。](docs/paper/measurement-overview.png)
+
+**论文图 1。** 在模型、预算与终止条件匹配的情况下，从相邻检查点独立续跑，比较最终任务质量与剩余 token 用量；同一框架也用于受控指导策略比较和真人来源交互验证。当前工具预览版提供描述性对话分析，尚未把这一续跑测量协议实现为 CLI 功能。
+
+<details>
+<summary><strong>论文结果：最终质量相同，剩余工作量也可能不同</strong></summary>
+
+![论文图 5：HumanBench 的 506 次有效比较，以及其中 409 次质量相同比较的剩余 token 变化。](docs/paper/humanbench-results.png)
+
+**论文图 5 — HumanBench。** 来自 85 个真人来源会话的 506 次联合有效比较中，49 次最终质量提高、409 次持平、48 次下降。在 409 次质量持平的比较中，112 次剩余 token 减少超过 20%，169 次变化在 ±20% 以内，128 次增加超过 20%。该持平子集覆盖 48 个根任务和 82 个来源会话。这说明有必要同时测量质量与计算投入；图中结果不代表当前仓库分析器的性能，也不是人类输入的货币估值。
+
+协议、样本与限制见[论文](https://arxiv.org/abs/2610.26365)；[图片来源说明](docs/paper/README.md)。
+
+</details>
+
 ## 先跑示例
 
 ```bash
