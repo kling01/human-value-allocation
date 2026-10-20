@@ -7,7 +7,9 @@ Import a dialogue, inspect each human turn, and follow every observation back to
 
 **Research preview · v0.1.0a1 · Python 3.10+ · MIT**
 
-[中文说明](README.zh-CN.md) · [Example report](https://kling01.github.io/human-value-allocation/) · [Evaluation rubric](src/human_value/evaluator.yaml) · [Method & limits](docs/method.md)
+[中文说明](README.zh-CN.md) · [Example report](https://kling01.github.io/human-value-allocation/) · [Evaluation rubric](src/human_value/evaluator.yaml) · [Method & limits](docs/method.md) · [Paper](https://arxiv.org/abs/2610.26365)
+
+Related paper: *From Tasks to Turns: Measuring Human Labor Contributions in Human–Agent Joint Production* studies Human-Turn-level quality and remaining computation; this preview provides descriptive contribution analysis and does not yet implement the paper's measurement protocol.
 
 ![Example contribution report](docs/preview.png)
 
