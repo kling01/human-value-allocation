@@ -108,11 +108,11 @@ def make_report(data, units, rows, *, provenance, evaluator_hash, model=None, us
                     "category_occurrences": {k: counts[k] for k in CATEGORIES}},
         "turns": rows, "evaluation_usage": usage or [],
         "limits": [
-            "Descriptive model judgments, not causal attribution or a person's worth.",
-            "Categories overlap. Occurrence counts are not shares of value or an allocation that sums to 100%.",
-            "Quoted evidence is checked against the input; semantic correctness still needs human review.",
-            "No token-equivalent value, saved tokens, task-quality gain, or calibrated confidence is estimated.",
-            "Evaluation usage measures the analyzer's API calls, not human contribution.",
+            "Review each contribution together with its source quote and the assistant's visible followup.",
+            "Categories can overlap. Read occurrence counts independently, rather than as percentages of a shared total.",
+            "Quote matching verifies the source text. Review whether that evidence supports the interpretation.",
+            "Unresolved turns are shown separately and excluded from contribution counts.",
+            "Evaluation usage records the model resources consumed by this analysis.",
         ],
     }
 

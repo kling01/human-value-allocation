@@ -25,11 +25,11 @@ def render_html(report: dict) -> str:
             f'<div class="contribution"><span class="tag">{e(CATEGORIES[c["category"]])}</span>'
             f'<p>{e(c["description"])}</p>{quote(c["evidence"])}</div>'
             for c in a["contributions"]
-        ) or '<p class="muted">No specific contribution identified in this message. This is not a judgment of the person.</p>'
+        ) or '<p class="muted">No specific task contribution identified in this message.</p>'
         f = a["followup"]
         followup = f'<div class="followup"><div class="eyebrow">VISIBLE FOLLOWUP · {e(f["status"])}</div><p>{e(f["description"])}</p>{"".join(quote(v) for v in f["evidence"])}</div>'
         limitations = "".join(f'<li>{e(s)}</li>' for s in a["limitations"])
-        turns.append(f'<article>{title}<h2>{e(a["summary"])}</h2>{contributions}{followup}<details><summary>Limits of this interpretation</summary><ul>{limitations}</ul></details></article>')
+        turns.append(f'<article>{title}<h2>{e(a["summary"])}</h2>{contributions}{followup}<details><summary>Review notes</summary><ul>{limitations}</ul></details></article>')
     transcript = "".join(
         f'<div class="message" id="{anchors[m["id"]]}"><span class="eyebrow">{e(m["role"].upper())} · {e(m["id"])}</span><p>{e(m["content"])}</p></div>'
         for m in messages
@@ -38,7 +38,7 @@ def render_html(report: dict) -> str:
     categories = "".join(f'<div class="category"><span>{e(label)}</span><b>{counts[key]}</b></div>' for key, label in CATEGORIES.items())
     fixture = report["provenance"] == "illustrative_fixture_not_model_output"
     banner = ("ILLUSTRATIVE DEMO · Synthetic conversation + authored annotations. No model was called."
-              if fixture else "MODEL ANALYSIS · Quotes verified against the supplied text. Interpretations require human review.")
+              if fixture else "MODEL ANALYSIS · Source quotes verified. Review each interpretation alongside its evidence.")
     limits = "".join(f'<li>{e(s)}</li>' for s in report["limits"])
     s = report["summary"]
     return f'''<!doctype html>
@@ -53,8 +53,8 @@ def render_html(report: dict) -> str:
 <h1>What did the human<br>bring to the work?</h1><p class="lead">Trace the information, corrections and decisions people contribute to AI conversations. Start with the evidence.</p><div class="banner">{e(banner)}</div></header>
 <main><div class="layout"><section>{''.join(turns)}</section><aside>
 <div class="panel"><div class="eyebrow">HUMAN TURNS ANALYZED</div><div class="stat">{s['analyzed_turns']} <span class="muted">/ {s['human_turns']}</span></div><p class="small">Unresolved: {s['unresolved_turns']}<br>Session: {e(report['session_id'])}</p></div>
-<div class="panel"><div class="eyebrow">CONTRIBUTION OBSERVATIONS</div>{categories}<p class="small">Categories can overlap. These are counts, not value scores or percentages.</p></div>
-<div class="panel"><div class="eyebrow">READ THIS REPORT AS</div><p class="small">A reviewable interpretation of visible dialogue. No causal, economic or token-equivalent value is estimated.</p></div>
+<div class="panel"><div class="eyebrow">CONTRIBUTION OBSERVATIONS</div>{categories}<p class="small">Occurrence counts across resolved turns. Categories can overlap; read each count independently.</p></div>
+<div class="panel"><div class="eyebrow">HOW TO READ THIS REPORT</div><p class="small">Follow each source quote to the conversation, then inspect how the assistant responded.</p></div>
 </aside></div><section class="transcript"><div class="eyebrow">SOURCE CONVERSATION</div><h2>Every observation leads back to the text.</h2>{transcript}</section>
-<section><h2>Scope & limitations</h2><ul>{limits}</ul><p class="small">Evaluation API attempts recorded: {len(report['evaluation_usage'])}. Usage belongs to the analyzer, not to the human.</p></section></main>
+<section><h2>Reading the results</h2><ul>{limits}</ul><p class="small">Evaluation API attempts recorded: {len(report['evaluation_usage'])}. Usage records the model resources consumed by this analysis.</p></section></main>
 <footer>Human Value Allocation · MIT · {e(report['software_version'])}<br>Provenance: {e(report['provenance'])}<br>Requested model: {e(report.get('requested_model') or 'none — offline fixture')}<br>Evaluator SHA-256: {e(report['evaluator_sha256'])}</footer></body></html>'''

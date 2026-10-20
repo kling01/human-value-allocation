@@ -43,7 +43,7 @@ python -m pip install .
 hva demo --out outputs/demo
 ```
 
-Open `outputs/demo/report.html` in your browser. The demo is fully offline and uses a synthetic conversation with **authored illustrative annotations**, not a model prediction or benchmark result.
+Open `outputs/demo/report.html` in your browser. The demo runs fully offline with a synthetic conversation and **authored illustrative annotations**.
 
 ## Analyze your own conversation
 
@@ -76,7 +76,7 @@ Remote endpoints require HTTPS by default. `--allow-insecure-http` explicitly op
 | Decision | A substantive choice or tradeoff |
 | Verification | An actual check, test result or grounded acceptance judgment |
 
-For each turn, the report separates the human's contribution from what the assistant visibly did next. Evidence quotes are checked against the permitted source messages. An invalid quote or failed API call produces an unresolved turn, not a zero-value score.
+For each turn, the report separates the human's contribution from what the assistant visibly did next. Evidence quotes are checked against the permitted source messages. An invalid quote or failed API call produces an unresolved turn, shown separately and excluded from contribution counts.
 
 ## Input format
 
@@ -101,7 +101,7 @@ python scripts/audit_release.py
 python -m build
 ```
 
-Tests cover source evidence, temporal boundaries, full IDs, failed evaluations, HTML escaping, shared-engine integration and request retry accounting. Mocked integration tests verify software behavior, not model accuracy.
+Tests cover source evidence, temporal boundaries, full IDs, failed evaluations, HTML escaping, shared-engine integration and request retry accounting. Integration tests exercise the analysis pipeline with a mocked model provider.
 
 See the [release validation record](docs/validation.md) for isolated installation and live smoke checks.
 
@@ -109,6 +109,6 @@ See the [release validation record](docs/validation.md) for isolated installatio
 
 - Human review of the rubric across several task types.
 - Counterfactual replay protocols and task-specific quality measures.
-- Token-equivalent contribution estimates only after those measures are validated.
+- Token-equivalent contribution estimates using validated comparison measures.
 
 If you try this on a conversation, useful feedback is **which observation you disagree with and why**. Share synthetic or appropriately redacted examples in [Issues](https://github.com/kling01/human-value-allocation/issues). Improvements to the rubric and input adapters are welcome.
