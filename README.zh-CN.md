@@ -6,7 +6,9 @@
 
 这是 **v0.1 研究预览版**。当前实现贡献分析，尚不预测“这句话值多少 token”，也不计算因果贡献、质量收益或价值百分比。评估标准尚待真人标注校准。
 
-[查看示例报告](https://kling01.github.io/human-value-allocation/) · [评估器全文](src/human_value/evaluator.yaml) · [English](README.md)
+[查看示例报告](https://kling01.github.io/human-value-allocation/) · [评估器全文](src/human_value/evaluator.yaml) · [English](README.md) · [论文](https://arxiv.org/abs/2610.26365)
+
+相关论文 *From Tasks to Turns: Measuring Human Labor Contributions in Human–Agent Joint Production* 研究 Human-Turn 级的质量与剩余计算量测度；当前预览版提供描述性贡献分析，尚未实现论文中的测量协议。
 
 ## 先跑示例
 
