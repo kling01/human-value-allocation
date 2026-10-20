@@ -1,6 +1,8 @@
 # Paper figures
 
-These figures were selected from the author-provided manuscript delivery associated with [From Tasks to Turns: Measuring Human Labor Contributions in Human–Agent Joint Production](https://arxiv.org/abs/2610.26365).
+These figures were selected from the author-provided `ACL_FINAL_DELIVERY 15.zip`: `ACL_Submission.pdf` and `ACL_Submission_Source.zip`, whose archive entries are dated October 13, 2026. Figure numbers and captions refer to that supplied manuscript.
+
+Related preprint: [From Tasks to Turns: Measuring Human Labor Contributions in Human–Agent Joint Production](https://arxiv.org/abs/2610.26365). The figure assets are sourced from the delivery archive, rather than an extraction of the later arXiv version.
 
 | Published image | Manuscript source | Treatment |
 | --- | --- | --- |
